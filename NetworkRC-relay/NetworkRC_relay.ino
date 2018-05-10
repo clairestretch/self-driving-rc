@@ -2,9 +2,6 @@
 #include <ESP8266WebServer.h>
 #include <Servo.h>
 
-const char* ssid = "Quantum Link";
-const char* password = "HPGNLWZ2DNTXB5K7";
-
 ESP8266WebServer server(80);
 Servo turn;
 
