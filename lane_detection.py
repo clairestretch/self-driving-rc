@@ -5,7 +5,7 @@ from numpy import ones,vstack
 from numpy.linalg import lstsq
 from statistics import mean
 
-class path_gen:
+class lane_gen:
     def __init__(self):
         self.vertices = np.array([[0, 500], [0, 300],
                                 [300, 200], [500, 200],
@@ -167,7 +167,7 @@ class path_gen:
         
     
 
-debug = path_gen()
+debug = lane_gen()
 #debug.image_test('2.jpg')
 
 debug.video_cap('http://192.168.8.101:8080/video')
