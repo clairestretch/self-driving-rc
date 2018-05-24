@@ -22,12 +22,13 @@ def main():
         time.sleep(1)
 
     paused = False
+    #IP camera video stream URL
     cam_url = 'http://192.168.8.100:8080/video'
     cam = cv2.VideoCapture(cam_url)
+    #ESP 8266 server URL
     test_rig = car('http://192.168.8.108/controls')
     
     while(True):
-        
         if not paused:
             ret, screen = cam.read()
             last_time = time.time()
