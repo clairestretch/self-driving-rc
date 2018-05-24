@@ -61,17 +61,9 @@ void setup() {
   pinMode(D5, OUTPUT); // led light strip
 
   turn.attach(D0); // steering Control (pwm 60 - 80 - 100)
+  turn.write(70);
 }
 
 void loop() {
-  int lightlev = 256 - analogRead(A0) / 4;
-  if (lightlev > 100) {
-    digitalWrite(D5, HIGH);
-  }
-  else {
-    digitalWrite(D5, LOW);
-  }
-  delay(5);
   server.handleClient();
 }
-
