@@ -25,7 +25,7 @@ class car:
             print(r.text, '\n')  
     def stop(self):
         self.payload['Relay'] = 2
-        self.payload['steerAngle'] = 70
+        self.payload['steerAngle'] = 68
         r = requests.get(self.url, params=self.payload)
         if self.debug:
             print(r.text, '\n')  
@@ -40,7 +40,7 @@ class car:
         if self.debug:
             print(r.text, '\n') 
     def straight(self):
-        self.payload['steerAngle'] = 70
+        self.payload['steerAngle'] = 68
         r = requests.get(self.url, params=self.payload)
         if self.debug:
             print(r.text, '\n') 
