@@ -3,7 +3,7 @@ import requests
 #KEY:
 
 #(Forward, Relay = 1), (Backward, Relay = 0), (No Acceleration, Relay = 2),
-#(Left, steerAngle = 70), (Right, steerAngle = 95), (Straight, steerAngle = 70) ~ 70)
+#(Left, steerAngle = 45), (Right, steerAngle = 95), (Straight, steerAngle = 68)
 
 class car:
     def __init__(self, espURL, debug=False):
