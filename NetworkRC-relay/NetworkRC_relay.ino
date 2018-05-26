@@ -7,10 +7,12 @@ const char* password = "";
 
 ESP8266WebServer server(80);
 Servo turn;
+int timeout = 0;
+bool motor = false;
 
 void handleControls() {
   String message;
-
+  timeout = 0;
   if (server.arg("steerAngle") != "") {
     turn.write(server.arg("steerAngle").toInt());
     message += "servo angle: " + server.arg("steerAngle") + "\n";
@@ -24,11 +26,13 @@ void handleControls() {
       message += "Stop\n";
     }
     if (relay == 1) {
+      motor = true;
       digitalWrite(D8, LOW);
       digitalWrite(D7, HIGH);
       message += "Forward\n";
     }
     if (relay == 0) {
+      motor = true;
       digitalWrite(D7, LOW);
       digitalWrite(D8, HIGH);
       message += "Backward\n";
@@ -66,4 +70,17 @@ void setup() {
 
 void loop() {
   server.handleClient();
+  if (server.client() == 0) {
+    timeout++;
+    delay(5);
+    if (timeout > 50) {
+      timeout = 0;
+      if (motor) {
+        Serial.println("off");
+        motor = false;
+        digitalWrite(D8, LOW);
+        digitalWrite(D7, LOW);
+      }
+    }
+  }
 }
