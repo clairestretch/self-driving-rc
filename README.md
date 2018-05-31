@@ -9,3 +9,6 @@ A work in progress to develop a fully autonomous remote controlled vehicle using
 * relay board: 2-channel relay interface board @ AC110V ~ AC250V 10A and DC30V 10A 
 * Batteries: 2 AA eneloop @ 1.2 Volt, 1 amazon basics micro usb battery bank @ 5 volts 
 * camera stand: suction cup phone holder 
+
+
+# Credits: https://github.com/Sentdex
