@@ -11,4 +11,4 @@ A work in progress to develop a fully autonomous remote controlled vehicle using
 * camera stand: suction cup phone holder 
 
 
-# Credits: https://github.com/Sentdex
+## Credits: https://github.com/Sentdex, tutorials helped me create this project
