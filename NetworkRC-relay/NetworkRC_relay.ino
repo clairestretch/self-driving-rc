@@ -82,7 +82,7 @@ void setup() {
   pinMode(D4, OUTPUT); // relay B
   //pinMode(D5, OUTPUT); // led light strip
 
-  turn.attach(D0); // steering Control (pwm 60 - 80 - 100)
+  turn.attach(D0); // steering Control
   turn.write(90);
 }
 
