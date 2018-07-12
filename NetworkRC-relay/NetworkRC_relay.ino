@@ -19,7 +19,7 @@ void keep_alive() {
     if (timeout > 50) {
       timeout = 0;
       if (motor) {
-        Serial.println("off");
+        //Serial.println("off");
         motor = false;
         digitalWrite(D4, LOW);
         digitalWrite(D5, LOW);
