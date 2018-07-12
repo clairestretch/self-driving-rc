@@ -6,11 +6,29 @@ const char* ssid = "";
 const char* password = "";
 
 ESP8266WebServer server(80);
+
 Servo turn;
+
 int timeout = 0;
 bool motor = false;
 
-void handleControls() {
+void keep_alive() {
+  if (server.client() == 0) {
+    timeout++;
+    delay(5);
+    if (timeout > 50) {
+      timeout = 0;
+      if (motor) {
+        Serial.println("off");
+        motor = false;
+        digitalWrite(D4, LOW);
+        digitalWrite(D5, LOW);
+      }
+    }
+  }
+}
+
+void com() {
   String message;
   timeout = 0;
   if (server.arg("steerAngle") != "") {
@@ -20,21 +38,21 @@ void handleControls() {
 
   if (server.arg("Relay") != "") {
     int relay = server.arg("Relay").toInt();
-    if (relay == 2) {
-      digitalWrite(D8, LOW);
-      digitalWrite(D7, LOW);
+    if (relay == 0) {
+      digitalWrite(D4, LOW);
+      digitalWrite(D5, LOW);
       message += "Stop\n";
     }
     if (relay == 1) {
       motor = true;
-      digitalWrite(D8, LOW);
-      digitalWrite(D7, HIGH);
+      digitalWrite(D4, LOW);
+      digitalWrite(D5, HIGH);
       message += "Forward\n";
     }
-    if (relay == 0) {
+    if (relay == 2) {
       motor = true;
-      digitalWrite(D7, LOW);
-      digitalWrite(D8, HIGH);
+      digitalWrite(D4, HIGH);
+      digitalWrite(D5, LOW);
       message += "Backward\n";
     }
   }
@@ -55,32 +73,20 @@ void setup() {
   Serial.println(WiFi.localIP());
   Serial.print("MAC address: ");
   Serial.println(WiFi.macAddress());
-  server.on("/controls", handleControls);
+  server.on("/", com);
   server.begin();
   Serial.println("Server listening:");
 
   //Motor Interface setup.
-  pinMode(D7, OUTPUT); // relay A
-  pinMode(D8, OUTPUT); // relay B
-  pinMode(D5, OUTPUT); // led light strip
+  pinMode(D5, OUTPUT); // relay A
+  pinMode(D4, OUTPUT); // relay B
+  //pinMode(D5, OUTPUT); // led light strip
 
   turn.attach(D0); // steering Control (pwm 60 - 80 - 100)
-  turn.write(70);
+  turn.write(90);
 }
 
 void loop() {
   server.handleClient();
-  if (server.client() == 0) {
-    timeout++;
-    delay(5);
-    if (timeout > 50) {
-      timeout = 0;
-      if (motor) {
-        Serial.println("off");
-        motor = false;
-        digitalWrite(D8, LOW);
-        digitalWrite(D7, LOW);
-      }
-    }
-  }
+  keep_alive();
 }
