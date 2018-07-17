@@ -6,26 +6,22 @@ const char* ssid = "";
 const char* password = "";
 
 ESP8266WebServer server(80);
-
 int timeout = 0;
+int pins[6] = {D1, D2, D3, D4, D5, D7};
 bool motor = false;
 
 //keep connection alive if client is connected, kill connection and turn off pins if timeout.
 void keep_alive() {
-  if (server.client() == 0) {
+  if (!server.client()) {
     timeout++;
     delay(5);
     if (timeout > 50) {
       timeout = 0;
       if (motor) {
-        Serial.println("off");
         motor = false;
-        digitalWrite(D1, LOW);
-        digitalWrite(D2, LOW);
-        digitalWrite(D3, LOW);
-        digitalWrite(D4, LOW);
-        digitalWrite(D5, LOW);
-        digitalWrite(D7, LOW);
+        for (int i = 0; i < 6; i++) {
+          digitalWrite(pins[i], LOW);
+        }
       }
     }
   }
@@ -90,6 +86,8 @@ void root() {
 
 
 void setup() {
+  Serial.begin(115200);
+
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
