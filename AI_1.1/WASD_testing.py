@@ -2,6 +2,7 @@ import requests
 from win32 import win32api
 import time
 
+drivespeed = 1000
 url = 'http://192.168.4.1'
 
 def keyState(keys):
@@ -26,10 +27,10 @@ def main():
             for key in keysOn:
                 if(key == 'W'):
                     payload['drive'] = 1
-                    payload['drivepwm'] = 1000
+                    payload['drivepwm'] = drivespeed
                 if(key == 'S'):
                     payload['drive'] = 2
-                    payload['drivepwm'] = 1000
+                    payload['drivepwm'] = drivespeed
                 if(key == 'A'):
                     payload['turn'] = 1
                 if(key == 'D'):
