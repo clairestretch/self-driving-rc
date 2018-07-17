@@ -66,8 +66,8 @@ def main():
         if keys_on:
             keys_on.sort()
             keys_on = ''.join(keys_on)
-            if str(keys_on) in action:
-                print(str(keys_on))
+            if keys_on in action:
+                print(keys_on)
                 output = action[keys_on]
                 payload = reset_car(payload)
                 for key in keys_on:
