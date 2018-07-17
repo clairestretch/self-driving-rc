@@ -3,7 +3,7 @@ from win32 import win32api
 import time
 
 drivespeed = 1000
-url = ''
+url = 'http://192.168.8.112/'
 
 def keyState(keys):
     stack = []
