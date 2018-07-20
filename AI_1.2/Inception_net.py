@@ -135,11 +135,6 @@ def inception_v3(width, height, frame_count, lr, output=8, model_name = 'AIcar.m
 
     loss = fully_connected(pool5_7_7, output,activation='softmax')
 
-    
-    #momentum = tflearn.optimizers.Momentum(learning_rate=lr, lr_decay=0.96, decay_step=100)
-    
-    
-    #defualt: optimizer='momentum' learning_rate=lr
     network = regression(loss, optimizer='momentum', learning_rate=lr,
                          loss='categorical_crossentropy',
                          name='targets')
